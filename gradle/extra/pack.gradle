@@ -143,6 +143,8 @@ publishing {
 
                 root.appendNode('url', "$projectLocation")
                 root.appendNode('name', "$project.name")
+                root.appendNode('description', "beetl integration with springboot.")
+                root.appendNode('packaging', "jar")
                 root.children().last() + pomConfig
             }
 
