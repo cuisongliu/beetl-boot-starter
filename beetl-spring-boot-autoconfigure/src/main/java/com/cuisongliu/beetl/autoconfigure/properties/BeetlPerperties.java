@@ -23,34 +23,102 @@ package com.cuisongliu.beetl.autoconfigure.properties;
  * THE SOFTWARE.
  */
 
+import org.beetl.core.Configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.Properties;
 
 /**
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2017-12-05 20:14
  */
-@ConfigurationProperties(prefix = BeetlPerperties.BEEL_PREFIX)
+@ConfigurationProperties(prefix = BeetlPerperties.BEETL_PREFIX)
 public class BeetlPerperties {
 
-    public static final String BEEL_PREFIX = "spring.beel";
+    public static final String BEETL_PREFIX = "spring.beetl";
 
-    private String prefix="/";
+    /**
+     * Set the suffix that gets appended to view names when building a URL.
+     */
+    private String suffix = ".btl";
 
-    private String suffix=".btl";
+    /**
+     * Set the content type for all views.
+     * <p>May be ignored by view classes if the view itself is assumed
+     * to set the content type, e.g. in case of JSPs.
+     */
+    private String contentType = "text/html;charset=UTF-8";
 
-    private String contentType="text/html;charset=UTF-8";
+    /**
+     * classpath 根路径
+     */
+    private String root = "classpath:/templates";
 
-    private String root="classpath:/templates";
+    /**
+     * Set the order in which this {@link org.springframework.web.servlet.ViewResolver}
+     * is evaluated.
+     */
+    private int order = 0;
 
-    private int order=0;
+    /**
+     * 自定义脚本方法文件的Root目录
+     */
+    private String functionRoot = "classpath:/functions";
+    /**
+     * 自定义脚本方法文件的Root后缀
+     */
+    private String functionSuffix = "fn";
+    /**
+     * 自定义标签文件Root目录
+     */
+    private String tagRoot = "classpath:/tags";
+    /**
+     * 自定义标签文件Root后缀
+     */
+    private String tagSuffix = "tag";
 
-    public String getPrefix() {
-        return prefix;
+    /**
+     * 模板占位起始符号
+     */
+    String placeholderStart = "${";
+    /**
+     * 模板占位结束符号
+     */
+    String placeholderEnd = "}";
+
+    /**
+     * 控制语句起始符号
+     */
+    private String statementStart = "<%";
+    /**
+     * 控制语句结束符号
+     */
+    private String statementEnd = "%>";
+
+    /**
+     * 是否检测文件变化,开发用true合适，但线上要改为false
+     */
+    private Boolean autoCheck = false;
+
+
+    public Properties getProperties() {
+        Properties properties = new Properties();
+        if (statementStart.startsWith("\\")) {
+            statementStart = statementStart.substring(1);
+        }
+        properties.setProperty(Configuration.DELIMITER_PLACEHOLDER_START, placeholderStart);
+        properties.setProperty(Configuration.DELIMITER_PLACEHOLDER_END, placeholderEnd);
+        properties.setProperty(Configuration.DELIMITER_STATEMENT_START, statementStart);
+        properties.setProperty(Configuration.DELIMITER_STATEMENT_END, statementEnd);
+        properties.setProperty("RESOURCE.functionRoot", functionRoot);
+        properties.setProperty("RESOURCE.functionSuffix", functionSuffix);
+        properties.setProperty("RESOURCE.tagRoot", tagRoot);
+        properties.setProperty("RESOURCE.tagSuffix", tagSuffix);
+        properties.setProperty("RESOURCE.autoCheck", autoCheck.toString());
+
+        return properties;
     }
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
 
     public String getSuffix() {
         return suffix;
