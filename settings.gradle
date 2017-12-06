@@ -1,0 +1,3 @@
+rootProject.name = 'beetl-boot-starter'
+include 'beetl-spring-boot-autoconfigure'
+include 'beetl-spring-boot-starter'
