@@ -80,11 +80,11 @@ public class BeetlProperties {
     /**
      * 模板占位起始符号
      */
-    String placeholderStart = "${";
+    private String placeholderStart = "${";
     /**
      * 模板占位结束符号
      */
-    String placeholderEnd = "}";
+    private String placeholderEnd = "}";
 
     /**
      * 控制语句起始符号
@@ -150,5 +150,77 @@ public class BeetlProperties {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public String getFunctionRoot() {
+        return functionRoot;
+    }
+
+    public void setFunctionRoot(String functionRoot) {
+        this.functionRoot = functionRoot;
+    }
+
+    public String getFunctionSuffix() {
+        return functionSuffix;
+    }
+
+    public void setFunctionSuffix(String functionSuffix) {
+        this.functionSuffix = functionSuffix;
+    }
+
+    public String getTagRoot() {
+        return tagRoot;
+    }
+
+    public void setTagRoot(String tagRoot) {
+        this.tagRoot = tagRoot;
+    }
+
+    public String getTagSuffix() {
+        return tagSuffix;
+    }
+
+    public void setTagSuffix(String tagSuffix) {
+        this.tagSuffix = tagSuffix;
+    }
+
+    public String getPlaceholderStart() {
+        return placeholderStart;
+    }
+
+    public void setPlaceholderStart(String placeholderStart) {
+        this.placeholderStart = placeholderStart;
+    }
+
+    public String getPlaceholderEnd() {
+        return placeholderEnd;
+    }
+
+    public void setPlaceholderEnd(String placeholderEnd) {
+        this.placeholderEnd = placeholderEnd;
+    }
+
+    public String getStatementStart() {
+        return statementStart;
+    }
+
+    public void setStatementStart(String statementStart) {
+        this.statementStart = statementStart;
+    }
+
+    public String getStatementEnd() {
+        return statementEnd;
+    }
+
+    public void setStatementEnd(String statementEnd) {
+        this.statementEnd = statementEnd;
+    }
+
+    public Boolean getAutoCheck() {
+        return autoCheck;
+    }
+
+    public void setAutoCheck(Boolean autoCheck) {
+        this.autoCheck = autoCheck;
     }
 }
