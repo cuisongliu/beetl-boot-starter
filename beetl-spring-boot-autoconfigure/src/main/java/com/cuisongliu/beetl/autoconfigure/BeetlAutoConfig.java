@@ -71,7 +71,7 @@ public class BeetlAutoConfig {
     }
 
     @Bean(name = "beetlViewResolver")
-    @ConditionalOnMissingBean(name="beetlConfig")
+    @ConditionalOnMissingBean(name="beetlViewResolver")
     public BeetlSpringViewResolver getBeetlSpringViewResolver(BeetlGroupUtilConfiguration beetlConfig) {
         BeetlSpringViewResolver beetlSpringViewResolver = new BeetlSpringViewResolver();
         beetlSpringViewResolver.setSuffix(beetlProperties.getSuffix());
