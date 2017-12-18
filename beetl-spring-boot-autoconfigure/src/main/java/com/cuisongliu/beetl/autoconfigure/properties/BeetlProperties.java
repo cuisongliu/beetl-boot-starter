@@ -32,8 +32,8 @@ import java.util.Properties;
  * @author cuisongliu [cuisongliu@qq.com]
  * @since 2017-12-05 20:14
  */
-@ConfigurationProperties(prefix = BeetlPerperties.BEETL_PREFIX)
-public class BeetlPerperties {
+@ConfigurationProperties(prefix = BeetlProperties.BEETL_PREFIX)
+public class BeetlProperties {
 
     public static final String BEETL_PREFIX = "spring.beetl";
 
