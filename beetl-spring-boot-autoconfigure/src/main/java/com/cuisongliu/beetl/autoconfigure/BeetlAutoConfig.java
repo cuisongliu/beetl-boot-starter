@@ -23,13 +23,14 @@ package com.cuisongliu.beetl.autoconfigure;
  * THE SOFTWARE.
  */
 
-import com.cuisongliu.beetl.autoconfigure.properties.BeetlPerperties;
+import com.cuisongliu.beetl.autoconfigure.properties.BeetlProperties;
 import org.beetl.core.resource.WebAppResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,37 +44,40 @@ import java.io.IOException;
  * beetl配置(如果需要配置别的配置可参照这个形式自己添加)
  *
  * @author cuijinrui
- * @date 2017-05-24 20:37
  */
 @Configuration
 @AutoConfigureAfter({WebMvcAutoConfiguration.class})
-@EnableConfigurationProperties(BeetlPerperties.class)
+@EnableConfigurationProperties(BeetlProperties.class)
 public class BeetlAutoConfig {
 
-    private BeetlGroupUtilConfiguration getBeetlGroupUtilConfiguration(BeetlPerperties beelPerperties) {
+    @Autowired
+    private BeetlProperties beetlProperties;
+
+    @Bean(name = "beetlConfig",initMethod = "init")
+    @ConditionalOnMissingBean(name="beetlConfig")
+    public BeetlGroupUtilConfiguration beetlConfig() {
         BeetlGroupUtilConfiguration beetlGroupUtilConfiguration = new BeetlGroupUtilConfiguration();
         ResourcePatternResolver patternResolver = ResourcePatternUtils.getResourcePatternResolver(new DefaultResourceLoader());
         try {
             // WebAppResourceLoader 配置root路径是关键
-            WebAppResourceLoader webAppResourceLoader = new WebAppResourceLoader(patternResolver.getResource(beelPerperties.getRoot()).getFile().getPath());
+            WebAppResourceLoader webAppResourceLoader = new WebAppResourceLoader(patternResolver.getResource(beetlProperties.getRoot()).getFile().getPath());
             beetlGroupUtilConfiguration.setResourceLoader(webAppResourceLoader);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        beetlGroupUtilConfiguration.setConfigProperties(beelPerperties.getProperties());
+        beetlGroupUtilConfiguration.setConfigProperties(beetlProperties.getProperties());
         //读取配置文件信息
         return beetlGroupUtilConfiguration;
     }
 
-    @Bean
-    @ConfigurationProperties(BeetlPerperties.BEETL_PREFIX)
-    public BeetlSpringViewResolver getBeetlSpringViewResolver(BeetlPerperties beetlPerperties) {
-        BeetlGroupUtilConfiguration beetlGroupUtilConfiguration =getBeetlGroupUtilConfiguration(beetlPerperties);
+    @Bean(name = "beetlViewResolver")
+    @ConditionalOnMissingBean(name="beetlConfig")
+    public BeetlSpringViewResolver getBeetlSpringViewResolver(BeetlGroupUtilConfiguration beetlConfig) {
         BeetlSpringViewResolver beetlSpringViewResolver = new BeetlSpringViewResolver();
-        beetlSpringViewResolver.setSuffix(beetlPerperties.getSuffix());
-        beetlSpringViewResolver.setContentType(beetlPerperties.getContentType());
-        beetlSpringViewResolver.setOrder(beetlPerperties.getOrder());
-        beetlSpringViewResolver.setConfig(beetlGroupUtilConfiguration);
+        beetlSpringViewResolver.setSuffix(beetlProperties.getSuffix());
+        beetlSpringViewResolver.setContentType(beetlProperties.getContentType());
+        beetlSpringViewResolver.setOrder(beetlProperties.getOrder());
+        beetlSpringViewResolver.setConfig(beetlConfig);
         return beetlSpringViewResolver;
     }
 
