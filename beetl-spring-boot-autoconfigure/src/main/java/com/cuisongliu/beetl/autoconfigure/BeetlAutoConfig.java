@@ -24,6 +24,7 @@ package com.cuisongliu.beetl.autoconfigure;
  */
 
 import com.cuisongliu.beetl.autoconfigure.properties.BeetlProperties;
+import org.beetl.core.GroupTemplate;
 import org.beetl.core.resource.WebAppResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
@@ -81,5 +82,9 @@ public class BeetlAutoConfig {
         return beetlSpringViewResolver;
     }
 
-
+    @Bean
+    @ConditionalOnMissingBean(name="groupTemplate")
+    public GroupTemplate groupTemplate(BeetlGroupUtilConfiguration beetlGroupUtilConfiguration){
+        return beetlGroupUtilConfiguration.getGroupTemplate();
+    }
 }
