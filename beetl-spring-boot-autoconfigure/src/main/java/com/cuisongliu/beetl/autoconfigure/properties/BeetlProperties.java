@@ -101,8 +101,10 @@ public class BeetlProperties {
     private Boolean autoCheck = false;
 
 
+    private Properties properties= new Properties();
+
+
     public Properties getProperties() {
-        Properties properties = new Properties();
         if (statementStart.startsWith("\\")) {
             statementStart = statementStart.substring(1);
         }
@@ -117,6 +119,10 @@ public class BeetlProperties {
         properties.setProperty("RESOURCE.autoCheck", autoCheck.toString());
 
         return properties;
+    }
+
+    public void setProperties(Properties properties){
+        this.properties=properties;
     }
 
 
