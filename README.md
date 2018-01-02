@@ -78,9 +78,9 @@ at  application.properties or application.yml append some properties.
 |spring.beetl.content-type|text/html;charset=UTF-8|
 |spring.beetl.root|classpath:/templates|
 |spring.beetl.order|0|
-|spring.beetl.function-root|classpath:/functions|
+|spring.beetl.function-root|/functions|
 |spring.beetl.function-suffix|fn|
-|spring.beetl.tag-root|classpath:/tags|
+|spring.beetl.tag-root|/tags|
 |spring.beetl.tag-suffix|tag|
 |spring.beetl.placeholder-start|${|
 |spring.beetl.placeholder-end|}|

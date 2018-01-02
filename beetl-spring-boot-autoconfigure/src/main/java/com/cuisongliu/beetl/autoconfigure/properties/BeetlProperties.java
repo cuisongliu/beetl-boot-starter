@@ -61,17 +61,17 @@ public class BeetlProperties {
     private int order = 0;
 
     /**
-     * 自定义脚本方法文件的Root目录
+     * 自定义脚本方法文件的Root目录, 针对root根目录的相对路径
      */
-    private String functionRoot = "classpath:/functions";
+    private String functionRoot = "/functions";
     /**
-     * 自定义脚本方法文件的Root后缀
+     * 自定义脚本方法文件的Root后缀, 针对root根目录的相对路径
      */
     private String functionSuffix = "fn";
     /**
      * 自定义标签文件Root目录
      */
-    private String tagRoot = "classpath:/tags";
+    private String tagRoot = "/tags";
     /**
      * 自定义标签文件Root后缀
      */
