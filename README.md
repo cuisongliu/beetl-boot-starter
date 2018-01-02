@@ -87,7 +87,7 @@ at  application.properties or application.yml append some properties.
 |spring.beetl.statement-start|<%|
 |spring.beetl.statement-end|%>|
 |spring.beetl.auto-check|false|
-
+|spring.beetl.properties|null|
 
 ## Example
 
@@ -95,6 +95,8 @@ at  application.properties or application.yml append some properties.
       beetl:
         suffix: .html
         auto-check: true
+        properties:
+            FNP.tool: com.cuisongliu.core.util.ToolUtil
 
 ## Acknowledgments
 
