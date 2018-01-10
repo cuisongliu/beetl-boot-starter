@@ -25,7 +25,7 @@ package com.cuisongliu.beetl.autoconfigure;
 
 import com.cuisongliu.beetl.autoconfigure.properties.BeetlProperties;
 import org.beetl.core.GroupTemplate;
-import org.beetl.core.resource.WebAppResourceLoader;
+import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +38,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
-
-import java.io.IOException;
 
 /**
  * beetl配置(如果需要配置别的配置可参照这个形式自己添加)
@@ -60,10 +58,9 @@ public class BeetlAutoConfig {
         BeetlGroupUtilConfiguration beetlGroupUtilConfiguration = new BeetlGroupUtilConfiguration();
         ResourcePatternResolver patternResolver = ResourcePatternUtils.getResourcePatternResolver(new DefaultResourceLoader());
         try {
-            // WebAppResourceLoader 配置root路径是关键
-            WebAppResourceLoader webAppResourceLoader = new WebAppResourceLoader(patternResolver.getResource(beetlProperties.getRoot()).getFile().getPath());
-            beetlGroupUtilConfiguration.setResourceLoader(webAppResourceLoader);
-        } catch (IOException e) {
+            ClasspathResourceLoader resourceLoader = new ClasspathResourceLoader(beetlProperties.getRoot());
+            beetlGroupUtilConfiguration.setResourceLoader(resourceLoader);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         beetlGroupUtilConfiguration.setConfigProperties(beetlProperties.getProperties());
